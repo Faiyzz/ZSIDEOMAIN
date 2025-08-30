@@ -4,11 +4,11 @@ import React from "react";
 import Image from "next/image";
 import { Camera, ScissorsSquare as EditIcon, Share2 } from "lucide-react";
 import type { SVGProps } from "react";
+import { motion } from "framer-motion";
 
 /**
  * HowItWorks Section
- * - Keeps your original layout
- * - Adds a continuous SVG "thread" behind the 3 cards with glow + markers
+ * Adds scroll-triggered animations for heading, cards, and SVG thread
  */
 export default function HowItWorks() {
   const steps: StepCardProps[] = [
@@ -40,7 +40,7 @@ export default function HowItWorks() {
       className="relative isolate overflow-hidden bg-white px-4 py-20 sm:px-6 lg:px-8"
       aria-labelledby="how-it-works-title"
     >
-      {/* Background image (optional subtle texture) */}
+      {/* Background image */}
       <div className="-mt-10 z-20">
         <Image
           src="/images/background.svg"
@@ -52,7 +52,13 @@ export default function HowItWorks() {
       </div>
 
       {/* Heading */}
-      <div className="relative z-10 mx-auto max-w-3xl text-center">
+      <motion.div
+        className="relative z-10 mx-auto max-w-3xl text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <h2
           id="how-it-works-title"
           className="font-semibold tracking-tight text-3xl sm:text-4xl lg:text-5xl"
@@ -64,14 +70,35 @@ export default function HowItWorks() {
         <p className="mt-4 text-base sm:text-lg text-neutral-600">
           Simple 3-Step Process — it’s really that easy
         </p>
-      </div>
+      </motion.div>
 
       {/* Cards + Thread */}
       <div className="relative z-100 mx-auto mt-12 max-w-6xl">
-        <ThreadUnderlay className="absolute inset-0 -z-10" />
+        <motion.div
+          className="absolute inset-0 -z-10"
+          initial={{ opacity: 0, pathLength: 0 }}
+          whileInView={{ opacity: 1, pathLength: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        >
+          <ThreadUnderlay />
+        </motion.div>
+
         <div className="flex flex-col gap-6">
           {steps.map((s, i) => (
-            <StepCard key={s.title} {...s} index={i} />
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.2,
+                ease: "easeOut",
+              }}
+            >
+              <StepCard {...s} index={i} />
+            </motion.div>
           ))}
         </div>
       </div>
@@ -142,14 +169,10 @@ interface StepCardProps {
 /* ------------------------------------ */
 
 function ThreadUnderlay({ className = "" }: { className?: string }) {
-  // Positions for the 3 step markers as percentages of the SVG height
-  const nodePercents = [0.16, 0.5, 0.84];
-
-  // SVG canvas size
   const W = 1200;
   const H = 420;
   const cx = W / 2;
-
+  const nodePercents = [0.16, 0.5, 0.84];
   const yAt = (p: number) => p * H;
 
   return (
@@ -161,7 +184,6 @@ function ThreadUnderlay({ className = "" }: { className?: string }) {
       aria-hidden
     >
       <defs>
-        {/* Glow for thread + nodes */}
         <filter id="thread-glow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="10" result="blur" />
           <feMerge>
@@ -169,28 +191,25 @@ function ThreadUnderlay({ className = "" }: { className?: string }) {
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-
-        {/* Gradient strokes */}
         <linearGradient id="thread-stroke" x1={cx} y1="0" x2={cx} y2={H}>
           <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.8" />
           <stop offset="60%" stopColor="#22D3EE" stopOpacity="0.85" />
           <stop offset="100%" stopColor="#0EA5E9" stopOpacity="0.9" />
         </linearGradient>
-
         <linearGradient id="thread-halo" x1={cx} y1="0" x2={cx} y2={H}>
           <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.25" />
           <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.15" />
         </linearGradient>
       </defs>
 
-      {/* Faint dashed halo path */}
+      {/* Dashed halo */}
       <path
-        d={`
-          M ${cx} 10
-          C ${cx - 120} ${H * 0.15}, ${cx + 160} ${H * 0.25}, ${cx} ${H * 0.33}
-          S ${cx - 160} ${H * 0.5}, ${cx} ${H * 0.62}
-          S ${cx + 120} ${H * 0.78}, ${cx} ${H - 10}
-        `}
+        d={`M ${cx} 10
+            C ${cx - 120} ${H * 0.15}, ${cx + 160} ${H * 0.25}, ${cx} ${
+          H * 0.33
+        }
+            S ${cx - 160} ${H * 0.5}, ${cx} ${H * 0.62}
+            S ${cx + 120} ${H * 0.78}, ${cx} ${H - 10}`}
         stroke="url(#thread-halo)"
         strokeWidth="5"
         strokeDasharray="10 14"
@@ -199,12 +218,12 @@ function ThreadUnderlay({ className = "" }: { className?: string }) {
 
       {/* Solid main thread */}
       <path
-        d={`
-          M ${cx} 10
-          C ${cx - 120} ${H * 0.15}, ${cx + 160} ${H * 0.25}, ${cx} ${H * 0.33}
-          S ${cx - 160} ${H * 0.5}, ${cx} ${H * 0.62}
-          S ${cx + 120} ${H * 0.78}, ${cx} ${H - 10}
-        `}
+        d={`M ${cx} 10
+            C ${cx - 120} ${H * 0.15}, ${cx + 160} ${H * 0.25}, ${cx} ${
+          H * 0.33
+        }
+            S ${cx - 160} ${H * 0.5}, ${cx} ${H * 0.62}
+            S ${cx + 120} ${H * 0.78}, ${cx} ${H - 10}`}
         stroke="url(#thread-stroke)"
         strokeWidth="2.5"
         strokeLinecap="round"
@@ -213,7 +232,6 @@ function ThreadUnderlay({ className = "" }: { className?: string }) {
       {/* Step markers */}
       {nodePercents.map((p, i) => (
         <g key={i} filter="url(#thread-glow)">
-          {/* Outer ring */}
           <circle
             cx={cx}
             cy={yAt(p)}
@@ -222,7 +240,6 @@ function ThreadUnderlay({ className = "" }: { className?: string }) {
             stroke="url(#thread-halo)"
             strokeWidth="2"
           />
-          {/* Inner dot */}
           <circle cx={cx} cy={yAt(p)} r="4.5" fill="url(#thread-stroke)" />
         </g>
       ))}

@@ -24,14 +24,14 @@ export default function Navbar({
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const linkBase = "transition text-white/85 hover:text-white";
+  const linkBase =
+    "relative transition text-white/80 hover:text-white after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full";
   const isActive = (href: string) => pathname.startsWith(href);
   const linkClass = (href: string) =>
-    `${linkBase} ${isActive(href) ? "text-white" : ""}`;
+    `${linkBase} ${isActive(href) ? "text-white after:w-full" : ""}`;
 
   return (
     <nav
-      // NOTE: absolute (not fixed) => it will scroll away; transparent background
       className="absolute inset-x-0 top-0 z-50 bg-transparent"
       style={{ height: navHeight }}
       aria-label="Primary"
@@ -60,7 +60,7 @@ export default function Navbar({
               Testimonials
             </Link>
             <Link
-              href="/Portfolio" /* normalized to lowercase */
+              href="/Portfolio"
               className={linkClass("/portfolio")}
               aria-current={isActive("/portfolio") ? "page" : undefined}
             >
@@ -92,7 +92,7 @@ export default function Navbar({
         </div>
       </div>
 
-      {/* Mobile menu (drops below bar). Absolute so it sits under the nav. */}
+      {/* Mobile menu */}
       {open && (
         <div className="md:hidden absolute inset-x-0 top-full px-6 pt-2">
           <div className="mx-auto max-w-screen-2xl rounded-2xl border border-white/15 bg-[#0E2A33]/90 backdrop-blur-md shadow-[0_20px_60px_-20px_rgba(0,0,0,.6)]">

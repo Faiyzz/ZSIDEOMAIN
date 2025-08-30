@@ -17,25 +17,25 @@ const MEDIA: MediaCard[] = [
   {
     id: "m1",
     title: "",
-    poster: "/images/Mobile.svg",
+    poster: "/images/image 107.svg",
     src: "/images/Mobile.svg",
   },
   {
     id: "m2",
     title: "",
-    poster: "/images/Mobile.svg",
+    poster: "/images/s1.svg",
     src: "/images/Mobile.svg",
   },
   {
     id: "m3",
     title: "",
-    poster: "/images/Mobile.svg",
+    poster: "/images/s2.svg",
     src: "/images/Mobile.svg",
   },
   {
     id: "m4",
     title: "",
-    poster: "/images/Mobile.svg",
+    poster: "/images/s3.png",
     src: "/images/Mobile.svg",
   },
   {
@@ -47,7 +47,7 @@ const MEDIA: MediaCard[] = [
   {
     id: "m6",
     title: "",
-    poster: "/images/Mobile.svg",
+    poster: "/images/s1.svg",
     src: "/images/Mobile.svg",
   },
 ];

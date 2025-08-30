@@ -84,7 +84,7 @@ export default function HeroSection() {
             >
               {/* Left card */}
               <CardWithChip
-                src="/images/Mobile.svg"
+                src="/images/s1.svg"
                 alt="Welcome frame"
                 imageFit="cover"
                 className="translate-y-0.5 md:translate-y-2"
@@ -106,7 +106,7 @@ export default function HeroSection() {
 
               {/* Center card */}
               <CardWithChip
-                src="/images/Mobile.svg"
+                src="/images/s2.svg"
                 alt="Cinematographer"
                 className="scale-[1.02] sm:scale-[1.06] md:scale-[1.12]"
                 highlight
@@ -129,7 +129,7 @@ export default function HeroSection() {
 
               {/* Right card */}
               <CardWithChip
-                src="/images/Mobile.svg"
+                src="/images/image 107.svg"
                 alt="Welcome frame 2"
                 className="translate-y-0.5 md:translate-y-2"
                 chipProps={{
