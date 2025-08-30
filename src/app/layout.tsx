@@ -19,7 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className="min-h-screen bg-[#01161D] text-white">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-[#01161D] text-white"
+      >
         {/* Transparent, non-sticky header overlays hero */}
         <Navbar logoSrc="/images/logo 1.svg" logoSize={70} navHeight={NAV_H} />
 

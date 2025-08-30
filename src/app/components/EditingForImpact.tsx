@@ -306,7 +306,7 @@ export default function EditingForImpactSection() {
       </div>
 
       {/* SECTION CURVE: BOTTOM (bulges UP) */}
-      <div className="absolute inset-x-0 bottom-0 pointer-events-none select-none z-0">
+      <div className="absolute inset-x-0 bottom-0 pointer-events-none select-none z-10">
         <svg
           width="100%"
           height="var(--curve-bottom-height)"
