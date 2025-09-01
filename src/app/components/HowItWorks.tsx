@@ -135,11 +135,12 @@ function StepCard({
           flip ? "md:flex-row-reverse" : "md:flex-row",
         ].join(" ")}
       >
+        {/* Bigger Icon */}
         <div
-          className="grid h-12 w-12 place-items-center rounded-xl bg-sky-500/10 ring-1 ring-inset ring-sky-500/20 shrink-0"
+          className="grid h-16 w-16 place-items-center rounded-xl bg-sky-500/10 ring-1 ring-inset ring-sky-500/20 shrink-0"
           aria-hidden
         >
-          <Icon className="h-6 w-6 text-sky-600" />
+          <Icon className="h-8 w-8 text-sky-600" />
         </div>
 
         <div className={`min-w-0 flex-1 ${flip ? "text-right" : "text-left"}`}>

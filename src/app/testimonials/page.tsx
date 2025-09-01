@@ -7,8 +7,9 @@ export default function Testimonials() {
   return (
     <main className="min-h-screen w-full bg-white">
       {/* NAV + HERO WRAPPER (shared gradient background + curved bottom) */}
+      {/* HERO WRAPPER */}
       <section
-        className="relative overflow-hidden text-white"
+        className="relative overflow-hidden text-white min-h-screen flex flex-col justify-center"
         style={{
           backgroundImage:
             "linear-gradient(135deg, #01161D 0%, #073542 55%, #0E6B7C 100%)",
@@ -26,7 +27,7 @@ export default function Testimonials() {
         {/* HERO */}
         <div className="relative z-10 mx-auto w-full max-w-screen-lg px-[clamp(16px,5vw,48px)] pt-[clamp(32px,8vw,80px)] pb-[clamp(48px,12vw,120px)] text-center">
           <h1
-            className="mx-auto max-w-4xl font-extrabold leading-tight tracking-tight text-transparent hero-title"
+            className=" mx-auto max-w-4xl font-extrabold leading-tight tracking-tight text-transparent hero-title"
             style={{
               fontSize: "clamp(26px,5vw,64px)",
             }}
