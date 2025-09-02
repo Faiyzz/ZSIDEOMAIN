@@ -17,10 +17,15 @@ const MEDIA: MediaCard[] = [
   {
     id: "m1",
     title: "",
-    poster: "/images/image 107.svg",
-    src: "/images/Mobile.svg",
+    poster: "/images/image .svg",
+    src: "/images/video.mp4",
   },
-  { id: "m2", title: "", poster: "/images/s1.svg", src: "/images/Mobile.svg" },
+  {
+    id: "m2",
+    title: "",
+    poster: "",
+    src: "/images/video.mp4",
+  },
   { id: "m3", title: "", poster: "/images/s2.svg", src: "/images/Mobile.svg" },
   { id: "m4", title: "", poster: "/images/s3.png", src: "/images/Mobile.svg" },
   {
@@ -78,7 +83,7 @@ export default function EditingForImpactSection() {
   };
 
   const getCardTransform = () =>
-    `transform-gpu will-change-transform transition-transform duration-500`;
+    `transform-gpu will-change-transform transition-transform duration-500 `;
 
   return (
     <section
@@ -123,7 +128,7 @@ export default function EditingForImpactSection() {
         </svg>
       </div>
 
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-20 z-10">
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-20 z-100">
         {/* Heading & Subheading */}
         <header className="text-center max-w-3xl mx-auto mt-6 sm:mt-10">
           <h2
@@ -144,7 +149,7 @@ export default function EditingForImpactSection() {
 
         {/* ===================== SCROLLER WITH NARROW CURVES OVERLAY ===================== */}
         <div
-          className="relative mt-6 sm:mt-10 lg:mt-12 overflow-visible"
+          className="relative mt-6 sm:mt-10 lg:mt-12 overflow-visible "
           style={
             {
               "--scroll-curve-top-height": "clamp(40px, 10vw, 90px)",
@@ -198,14 +203,14 @@ export default function EditingForImpactSection() {
                 key={m.id}
                 data-card
                 className={[
-                  "basis-[78%] xs:basis-[68%] sm:basis-[48%] md:basis-[36%] lg:basis-[24%]",
+                  "basis-[78%] xs:basis-[68%] sm:basis-[48%] md:basis-[36%] lg:basis-[25%] ",
                   "shrink-0 grow-0 snap-center",
                   "rounded-xl border border-white/10 bg-[#0B171B] shadow-[0_8px_24px_rgba(0,0,0,0.35)]",
                   "hover:shadow-[0_12px_36px_rgba(0,0,0,0.45)] transition-shadow duration-300",
                   getCardTransform(),
                 ].join(" ")}
               >
-                <div className="relative aspect-[9/13] w-full overflow-hidden rounded-xl">
+                <div className="relative aspect-[9/16] w-full overflow-hidden rounded-xl">
                   {m.src ? (
                     <video
                       className="absolute inset-0 h-full w-full object-cover"
@@ -280,7 +285,7 @@ export default function EditingForImpactSection() {
           <Link
             href="#work"
             className={[
-              "relative inline-flex items-center justify-center rounded-full px-5 py-2",
+              "relative inline-flex items-center justify-center rounded-full px-5 py-2 ",
               "font-semibold text-white text-sm sm:text-base",
               "border border-white/18 bg-white/10 backdrop-blur-[2px]",
               "shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_2px_12px_rgba(0,0,0,0.35)]",

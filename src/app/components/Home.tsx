@@ -38,7 +38,7 @@ export default function HeroSection() {
       }}
     >
       {/* Content on top of bg */}
-      <section className="relative z-20 mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-10 lg:px-16 pt-14 pb-20 lg:py-24">
+      <section className="relative z-20 mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-10 lg:px-16 pt-14 pb-20 lg:py-40">
         <div className="pb-20 grid items-center gap-12 lg:grid-cols-2">
           {/* Left: Heading + CTA */}
           <div className="space-y-8 text-center lg:text-left">
@@ -167,7 +167,7 @@ export default function HeroSection() {
         <svg
           width="100%"
           height="var(--curve-height)"
-          viewBox="0 0 1440 90"
+          viewBox="0 0 1440 95"
           preserveAspectRatio="none"
           aria-hidden="true"
         >
@@ -201,7 +201,7 @@ function CardWithChip({
   // ✅ Smaller default card size on xs so all three fit side-by-side.
   // Sizes scale up at sm/md to match your desktop look.
   const base =
-    "relative h-[176px] w-[96px] sm:h-[240px] sm:w-[138px] md:h-[320px] md:w-[190px] lg:h-[360px] lg:w-[210px]";
+    "relative h-[176px] w-[96px] sm:h-[240px] sm:w-[138px] md:h-[320px] md:w-[190px] lg:h-[400px] lg:w-[210px]";
   const stroke =
     "rounded-[18px] sm:rounded-[24px] md:rounded-[28px] border-2 border-white/85 shadow-[0_20px_60px_-20px_rgba(0,0,0,.65)]";
   const bg = "bg-white/5 backdrop-blur";

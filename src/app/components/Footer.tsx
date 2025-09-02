@@ -8,7 +8,7 @@ type CSSVars = React.CSSProperties & Record<string, string | number>;
 type FooterProps = {
   bgImage?: string;
   logoSrc?: string;
-  logoWidth?: number; // still supported, but we also apply fluid size with clamp()
+  logoWidth?: number;
   logoHeight?: number;
 };
 
@@ -22,7 +22,7 @@ export default function Footer({
 
   return (
     <footer
-      className="relative isolate overflow-hidden text-white"
+      className="relative isolate overflow-hidden text-white min-h-[clamp(320px,42vh,560px)]"
       style={
         {
           "--footer-curve-height": "120px",
@@ -51,7 +51,7 @@ export default function Footer({
         }}
       />
 
-      {/* TOP CURVE (Editable) */}
+      {/* TOP CURVE */}
       <div className="absolute inset-x-0 top-0 z-10 pointer-events-none select-none">
         <svg
           width="100%"
@@ -72,8 +72,11 @@ export default function Footer({
       <div
         className={[
           "relative mx-auto w-full max-w-screen-xl",
-          "px-[clamp(12px,4vw,32px)] py-[clamp(20px,6vw,44px)]",
-          "sm:py-[clamp(28px,6vw,60px)]",
+          "px-[clamp(12px,4vw,32px)]",
+          // ↓↓↓ Push content down from the curved top for ALL screens
+          "pt-[calc(var(--footer-curve-height)*0.40+clamp(28px,7vw,88px))]",
+          // Bottom padding (overall footer height feel)
+          "pb-[clamp(32px,7vw,84px)]",
         ].join(" ")}
       >
         <div className="grid grid-cols-[auto,1fr] items-center gap-x-4 gap-y-3 min-w-0">

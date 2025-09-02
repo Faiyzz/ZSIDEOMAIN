@@ -32,7 +32,7 @@ export default function Navbar({
 
   return (
     <nav
-      className="absolute inset-x-0 top-0 z-50 bg-transparent"
+      className="absolute inset-x-0 top-5 z-50 bg-transparent"
       style={{ height: navHeight }}
       aria-label="Primary"
     >
