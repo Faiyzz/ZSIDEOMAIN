@@ -422,7 +422,7 @@ export default function EditingForImpact() {
         <header className="text-center max-w-3xl mx-auto mt-6 sm:mt-10">
           <h2
             id="editing-impact-heading"
-            className="text-3xl sm:text-4xl lg:5xl font-extrabold leading-tight tracking-tight mb-3 bg-clip-text text-transparent"
+            className="text-5xl sm:text-5xl shiny-text lg:5xl font-extrabold leading-tight tracking-tight mb-3 bg-clip-text text-transparent"
             style={{
               backgroundImage:
                 "radial-gradient(90% 120% at 50% 50%, #BDB8AC 0%, #8F8B82 35%, #6F6B62 70%, #4F4B44 100%)",

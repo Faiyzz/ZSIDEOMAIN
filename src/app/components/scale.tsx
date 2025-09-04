@@ -1,12 +1,13 @@
-// components/ReadyToScaleLikeScreenshot.tsx
+
 "use client";
 
 import { useMemo } from "react";
 
 type Props = { calendlyUrl?: string };
 
+
 export default function ReadyToScaleLikeScreenshot({
-  calendlyUrl = "https://calendly.com/your-org/30min",
+  calendlyUrl = "https://calendly.com/d/cv9k-n8v-s84",
 }: Props) {
   const domain =
     typeof window !== "undefined" ? window.location.hostname : "localhost";
@@ -15,7 +16,6 @@ export default function ReadyToScaleLikeScreenshot({
     () => `${calendlyUrl}?embed_type=Inline&embed_domain=${domain}`,
     [calendlyUrl, domain]
   );
-
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
@@ -44,7 +44,7 @@ export default function ReadyToScaleLikeScreenshot({
                 rel="noreferrer"
                 className="group inline-flex justify-center items-center gap-2 rounded-full bg-[#38BDF8] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-200/50 transition hover:brightness-110 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 w-full sm:w-auto"
               >
-                Get Started ↗
+                Get Started 
               </a>
               <span className="text-sm text-neutral-500">
                 No pressure—just a quick strategy chat.

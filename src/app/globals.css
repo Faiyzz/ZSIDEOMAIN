@@ -1,1 +1,35 @@
 @import "tailwindcss";
+/* globals.css */
+.shiny-text {
+  display: inline-block;
+  position: relative;
+
+  /* Base gradient with a highlight band */
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #ffffff 40%,
+    rgb(76, 135, 116) 50%, /* the shiny sweep */
+    #ffffff 60%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+
+  /* Clip gradient to text only */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Animation */
+  animation: shine-sweep 2.5s linear infinite;
+}
+
+/* Keyframes */
+@keyframes shine-sweep {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
