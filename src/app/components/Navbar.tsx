@@ -24,10 +24,12 @@ export default function Navbar({
 }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() || "";
- useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const h = `${navHeight}px`;
     document.documentElement.style.setProperty("--nav-h", h);
   }, [navHeight]);
+  // add this helper type near the top (below NavbarProps)
+  type CSSVars = React.CSSProperties & { ["--nav-row-h"]?: string };
 
   // Close menu on route change
   useEffect(() => {
@@ -50,6 +52,8 @@ export default function Navbar({
     "relative transition text-white/80 hover:text-white after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full";
   const linkClass = (href: string) =>
     `${linkBase} ${isActive(href) ? "text-white after:w-full" : ""}`;
+  // inside the component, before `return`
+  const rowStyle: CSSVars = { "--nav-row-h": `${navHeight}px` };
 
   return (
     <nav
@@ -63,8 +67,7 @@ export default function Navbar({
         {/* Flex on mobile (logo left, burger right). Grid on md+ (true center links). */}
         <div
           className="flex h-[--nav-row-h] items-center justify-between md:grid md:grid-cols-3"
-          style={{ ["--nav-row-h" as any]: `${navHeight}px` }}
-        >
+          style={rowStyle}        >
           {/* Left: Logo */}
           <div className="flex items-center">
             <Link
@@ -72,7 +75,7 @@ export default function Navbar({
               aria-label="Go to homepage"
               className="inline-flex items-center gap-2"
             >
-            <h1>ZSIDEO</h1>
+              <h1>ZSIDEO</h1>
             </Link>
           </div>
 
