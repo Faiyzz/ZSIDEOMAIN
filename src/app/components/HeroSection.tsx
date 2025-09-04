@@ -1,7 +1,7 @@
 // components/HeroSection.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Carousel3DImages from "./Carousel3DImages";
 
@@ -19,30 +19,40 @@ const images = [
 ];
 
 export default function HeroSection() {
-  const [cardH, setCardH] = useState(560);
+  const [carH, setCarH] = useState<number>(560);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const calc = () => {
+      const w = window.innerWidth;
       const h = window.innerHeight;
-      const mobile = window.innerWidth < 640;
+      const isMobile = w < 640;
+      const isShort = h < 760; // common small-laptop height
 
-      if (mobile) {
-        // Mobile: strong presence; never tiny
-        setCardH(Math.max(Math.round(h * 0.60), 380));
-      } else {
-        // Desktop/tablet: proportional but clamped
-        setCardH(Math.min(640, Math.max(520, Math.round(h * 0.58))));
-      }
+      // Base target as % of viewport height
+      const targetVH = isMobile ? (isShort ? 44 : 56) : (isShort ? 40 : 52);
+      // Hard clamps in px to prevent “monster” carousel on small laptops
+      const minPx = isMobile ? 360 : 420;
+      const maxPx = isMobile ? 560 : 600;
+
+      const px = Math.round(Math.min(maxPx, Math.max(minPx, (h * targetVH) / 100)));
+      setCarH(px);
+      // expose to CSS consumers
+      document.documentElement.style.setProperty("--car-h", `${px}px`);
     };
+
     calc();
     window.addEventListener("resize", calc);
-    return () => window.removeEventListener("resize", calc);
+    window.addEventListener("orientationchange", calc);
+    return () => {
+      window.removeEventListener("resize", calc);
+      window.removeEventListener("orientationchange", calc);
+    };
   }, []);
 
   const heading = (
     <>
-      <span className="block">Attention is currency.</span>
-      <span className="block sm:inline">We mint it one short at a time.</span>
+      <span className="block shiny-text">Attention is currency.</span>
+      <span className="block sm:inline shiny-text">We mint it one short at a time.</span>
     </>
   );
 
@@ -57,26 +67,24 @@ export default function HeroSection() {
         `,
       }}
     >
-      {/* FLOW SPACER to reserve exact carousel height -> prevents black gap */}
-      <div aria-hidden className="w-full" style={{ height: cardH }} />
+      {/* Reserve exact carousel height at top to prevent jump */}
+      <div aria-hidden className="w-full" style={{ height: `var(--car-h, ${carH}px)` }} />
 
       {/* CAROUSEL LAYER */}
-      <div className="absolute inset-x-0 bottom-0 z-30" style={{ height: cardH }}>
-        <div className="relative h-full">
+      <div className="absolute inset-x-0 bottom-0 z-30" style={{ height: `var(--car-h, ${carH}px)` }}>
+        <div className="relative h-full pointer-events-none">
           <Carousel3DImages
             items={images}
-            cardHeight={cardH}
             speedSec={24}
             overlapPx={8}
             radiusClass="rounded-xl sm:rounded-2xl"
-            aspectClass="aspect-[9/16]"
           />
-          {/* darken media for contrast */}
-          <div className="absolute inset-0 bg-black/75 sm:bg-black/55" />
+          {/* darken media for contrast – lighten on short/mobile to help text pop */}
+          <div className="absolute inset-0 pointer-events-none bg-black/65 sm:bg-black/55 [@media(max-height:760px)]:bg-black/50" />
         </div>
       </div>
 
-      {/* HEADING: FILLED VERSION (BEHIND CAROUSEL) */}
+      {/* BACK glow headline (behind carousel for depth) */}
       <div
         className="pointer-events-none absolute inset-0 z-20 flex items-start justify-center px-4 text-center"
         style={{ paddingTop: "calc(var(--nav-h, 64px) + 1.25rem)" }}
@@ -86,41 +94,49 @@ export default function HeroSection() {
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-          className={[
-            // Typography
-            "font-semibold leading-tight tracking-tight shiny-text mt-8",
-            // Size: force big + 2 lines on mobile; loosen on larger screens
-            "text-[clamp(32px,9vw,84px)]",
-            // Width clamp encourages wrapping ~2 lines on mobile
-            "max-w-[16ch] sm:max-w-[22ch] md:max-w-[28ch]",
-            // Color and subtle glow (behind layer)
-           
-          ].join(" ")}
+          className="font-semibold leading-tight tracking-tight mt-8 text-[clamp(30px,8.5vw,74px)] max-w-[16ch] sm:max-w-[22ch] md:max-w-[28ch] text-white/10 blur-[1px]"
         >
           {heading}
         </motion.h1>
       </div>
 
+      {/* FRONT crisp headline (always above carousel) */}
+      <div
+        className="pointer-events-none absolute inset-0 z-40 flex items-start justify-center px-4 text-center"
+        style={{ paddingTop: "calc(var(--nav-h, 64px) + 1.25rem)" }}
+      >
+        <motion.h1
+          initial={{ y: 16, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+          className="font-semibold leading-tight tracking-tight mt-8 text-[clamp(30px,8.5vw,74px)] max-w-[16ch] sm:max-w-[22ch] md:max-w-[28ch] text-white"
+          style={{
+            textShadow:
+              "0 1px 0 rgba(0,0,0,.25), 0 8px 30px rgba(0,0,0,.35)",
+          }}
+        >
+          {heading}
+        </motion.h1>
+      </div>
 
-    
-
-      {/* CTA (ABOVE EVERYTHING, BUT SEPARATE FROM HEADING) */}
+      {/* CTA */}
+      {/* CTA — centered over carousel */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.25 }}
-        className="pointer-events-none absolute inset-0 z-50 flex items-end justify-center pb-8"
-        style={{ paddingTop: "calc(var(--nav-h, 64px) + 1.25rem)" }}
+        className="pointer-events-none absolute inset-x-0 z-50 flex items-center justify-center"
+        style={{ height: `var(--car-h, ${carH}px)`, bottom: 0 }}
       >
         <a
           href="#get-started"
           className="pointer-events-auto group inline-flex items-center gap-2
-                     rounded-full border border-white/60 bg-white/10
-                     px-6 py-3 sm:px-8 sm:py-4
-                     text-sm sm:text-lg font-semibold text-white
-                     shadow-lg backdrop-blur-md
-                     transition-transform duration-300
-                     hover:scale-[1.04] active:scale-[0.97]"
+               rounded-full border border-white/60 bg-white/10
+               px-6 py-3 sm:px-8 sm:py-4
+               text-sm sm:text-lg font-semibold text-white
+               shadow-lg backdrop-blur-md
+               transition-transform duration-300
+               hover:scale-[1.04] active:scale-[0.97]"
         >
           Get Started
           <svg
@@ -135,6 +151,7 @@ export default function HeroSection() {
           </svg>
         </a>
       </motion.div>
+
     </section>
   );
 }

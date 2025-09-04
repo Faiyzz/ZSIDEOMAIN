@@ -4,34 +4,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-type ImageItem = {
-  id: number | string;
-  src: string;
-  alt?: string;
-  width?: number;
-  height?: number;
-};
+type ImageItem = { id: number | string; src: string; alt?: string };
 
 type Props = {
   items: ImageItem[];
-  /** (Optional) kept for compatibility but not used for layout anymore */
-  cardHeight?: number;
   speedSec?: number;
   overlapPx?: number;
   radiusClass?: string;
-  aspectClass?: string; // not needed now; we use CSS aspect-ratio 9/16
 };
 
-// CSS variables-safe type (no `any`)
 type CSSVars = React.CSSProperties & {
   ["--overlap"]?: string;
   ["--speedSec"]?: string;
-  ["--car-h"]?: string; // reserved if you ever want to control height from parent
 };
 
 export default function Carousel3DImages({
   items,
-  cardHeight, // currently not used for layout; height comes from parent via --car-h
   speedSec = 20,
   overlapPx = 12,
   radiusClass = "rounded-2xl",
@@ -50,7 +38,6 @@ export default function Carousel3DImages({
     return () => io.disconnect();
   }, []);
 
-  // Duplicate for seamless loop
   const loopItems = [...items, ...items];
 
   const wrapStyle: CSSVars = {
@@ -77,7 +64,7 @@ export default function Carousel3DImages({
               key={`${it.id}-${idx}`}
               className="relative shrink-0 h-full"
               style={{
-                aspectRatio: "9 / 16", // width auto from aspect ratio
+                aspectRatio: "9 / 16",
                 marginLeft: idx % items.length === 0 ? 0 : "calc(var(--overlap) * -1)",
               }}
             >
@@ -98,12 +85,8 @@ export default function Carousel3DImages({
 
       <style jsx>{`
         @keyframes scroll-x {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
       `}</style>
     </section>
