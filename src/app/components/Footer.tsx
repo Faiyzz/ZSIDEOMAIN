@@ -51,22 +51,6 @@ export default function Footer({
         }}
       />
 
-      {/* TOP CURVE */}
-      <div className="absolute inset-x-0 top-0 z-10 pointer-events-none select-none">
-        <svg
-          width="100%"
-          height="var(--footer-curve-height)"
-          viewBox="0 0 1440 150"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          style={{ display: "block" }}
-        >
-          <path
-            d="M0,40 C320,100 1120,100 1440,40 L1440,0 L0,0 Z"
-            fill="var(--footer-curve-fill)"
-          />
-        </svg>
-      </div>
 
       {/* CONTENT */}
       <div

@@ -17,22 +17,22 @@ export default function ReadyToScaleLikeScreenshot({
     [calendlyUrl, domain]
   );
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-hidden">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
         <div className="grid items-center gap-10 sm:gap-12 lg:gap-16 grid-cols-1 md:grid-cols-2">
           {/* Left copy */}
           <div className="max-w-2xl md:max-w-none">
-            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-black/10 bg-gradient-to-b from-white to-white/60 px-3 py-1 text-[11px] sm:text-[12px] font-medium text-neutral-700 shadow-sm">
+            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-black/10  px-3 py-1 text-[11px] sm:text-[12px] font-medium text-neutral-700 shadow-sm">
               🚀 Limited slots this week
             </p>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight sm:leading-[1.15] text-[#0B0F14]">
-              Ready To <span className="text-black">Scale?</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight sm:leading-[1.15] text-white">
+              Ready To <span className="text-white">Scale?</span>
               <br className="hidden sm:block" />
               Let’s Talk!
             </h2>
 
-            <p className="mt-4 text-[15px] sm:text-[16px] leading-7 text-neutral-600 max-w-prose">
+            <p className="mt-4 text-[15px] sm:text-[16px] leading-7 text-white max-w-prose">
               Book a FREE call with our team below. We’ll map your goals and
               give you a clear, actionable plan.
             </p>
@@ -116,11 +116,7 @@ export default function ReadyToScaleLikeScreenshot({
         </div>
       </div>
 
-      {/* Subtle background accents (light & responsive) */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -left-24 h-40 w-40 sm:h-56 sm:w-56 rounded-full bg-sky-100 blur-3xl" />
-        <div className="absolute -bottom-16 -right-24 h-36 w-36 sm:h-52 sm:w-52 rounded-full bg-indigo-100 blur-3xl" />
-      </div>
+     
     </section>
   );
 }
