@@ -23,7 +23,7 @@ const workExperience = [
   {
     id: 4,
     title: "Analyze & Optimize for Growth",
-    desc: "We track performance, analyze viewer engagement, and optimize your content strategy for maximum growth. Get actionable insights on what’s working, what’s not, and how to boost reach, conversions, and retention.",
+    desc: "We track performance, analyze viewer engagement, and optimize your content strategy for maximum growth. Get actionable insights on what's working, what's not, and how to boost reach, conversions, and retention.",
     thumbnail: "/images/4.jpg",
   },
 ];
@@ -41,25 +41,30 @@ const HowItWorks = () => {
             key={card.id}
             duration={Math.floor(Math.random() * 10000) + 10000}
             borderRadius="1.75rem"
-            style={{
-              borderRadius: `calc(1.75rem * 0.96)`,
-            }}
-            className="flex-1 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+            style={{ borderRadius: `calc(1.75rem * 0.96)` }}
+            className="flex flex-col overflow-hidden text-black dark:text-white border-neutral-200 dark:border-slate-800 group"
           >
-            <div className="flex flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-2">
+            {/* Image with overlay */}
+            <div className="relative w-full overflow-hidden">
               <img
                 src={card.thumbnail}
                 alt={card.title}
-                className=""
+                className="w-full h-56 object-cover filter blur-sm transition-all duration-500 ease-in-out group-hover:blur-none group-hover:scale-105"
               />
-              <div className="lg:ms-5">
-                <h1 className="text-start text-xl md:text-2xl font-bold">
+              {/* Overlay for better text readability */}
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-all duration-500 ease-in-out" />
+              
+              {/* Title overlay - disappears on hover */}
+              <div className="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-500 ease-in-out">
+                <h1 className="text-xl md:text-2xl font-bold text-white text-center px-4">
                   {card.title}
                 </h1>
-                <p className="text-start text-white-100 mt-3 font-semibold">
-                  {card.desc}
-                </p>
               </div>
+            </div>
+
+            {/* Text below image */}
+            <div className="p-6 md:p-8 lg:p-10">
+              <p className="text-white-100 font-semibold">{card.desc}</p>
             </div>
           </Button>
         ))}

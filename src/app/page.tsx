@@ -2,6 +2,7 @@
 import HeroSection from "./components/HeroSection";
 import HowItWorks from "./components/HowItWorks";
 import { ThreeDMarquee } from "./components/ThreeDMarquee";
+import WhyUs from "./components/WhyUs";
 
 import ReadyToScaleSection from "./components/scale";
 
@@ -10,6 +11,7 @@ export default function Page() {
     <>
       <HeroSection />
       <HowItWorks />
+      <WhyUs />
       <ThreeDMarquee
         cols={6} // will render 7 strips internally
         images={[
